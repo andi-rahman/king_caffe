@@ -1,0 +1,57 @@
+<odoo>
+    <record id="pos_config_view_form_inherit_king" model="ir.ui.view">
+        <field name="name">pos.config.inherited</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='start_category']/../.." position='after'>
+                <div class="col-12 col-lg-6 o_setting_box" groups="point_of_sale.group_pos_manager">
+                    <div class="o_setting_left_pane">
+                        <field name="iface_pin"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="iface_pin"/>
+                        <div class="text-muted">
+                            Enter your pin to payments
+                        </div>
+                        <div class="content-group mt16" attrs="{'invisible' : [('iface_pin', '=', False)]}">
+                            <div>
+                                <label string="PIN" for="pin" class="col-lg-2 o_light_label"/>
+                                <field name="pin" password="True"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <div id="category_reference" position="after">
+                <div class="col-12 col-lg-6 o_setting_box"
+                     id="iface_bar">
+                    <div class="o_setting_left_pane">
+                        <field name="iface_bar" attrs="{'readonly': [('has_active_session','=', True)]}"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="iface_bar"/>
+                        <span class="fa fa-lg fa-cutlery" title="Print to Bar" role="img" aria-label="For Print to Bar"/>
+                        <div class="text-muted">
+                            Print to Bar
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box"
+                     id="iface_kitchen">
+                    <div class="o_setting_left_pane">
+                        <field name="iface_kitchen" attrs="{'readonly': [('has_active_session','=', True)]}"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="iface_kitchen"/>
+                        <span class="fa fa-lg fa-cutlery" title="Print to Kitchen" role="img" aria-label="For Print to Kitchen"/>
+                        <div class="text-muted">
+                            Print to Kitchen
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
+

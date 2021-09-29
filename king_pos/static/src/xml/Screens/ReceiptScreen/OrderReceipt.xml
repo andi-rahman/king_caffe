@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('orderlines')]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('pos-receipt')]/t[3]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+        <!-- report to kitchen or bar -->
+        <xpath expr="//div[hasclass('orderlines')]" position="after">
+            <t t-if="props.isKitchen">
+                <div class="orderlinesnking">
+                    <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+                        <t t-if="line.is_food">
+                            <div t-esc="line.product_name_wrapped[0]" />
+                            <WrappedProductNameLines line="line" />
+                            <div class="pos-receipt-left-padding">
+                                <t t-esc="line.note" />
+                                <span class="price_display pos-receipt-right-align">
+                                    <t t-esc="line.quantity" />
+                                </span>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+            <t t-if="props.isBar">
+                <div class="orderlinesnking">
+                    <t t-foreach="receipt.orderlines" t-as="line" t-key="line.id">
+                        <t t-if="line.is_drink">
+                            <div t-esc="line.product_name_wrapped[0]" />
+                            <WrappedProductNameLines line="line" />
+                            <div class="pos-receipt-left-padding">
+                                <t t-esc="line.note" />
+                                <span class="price_display pos-receipt-right-align">
+                                    <t t-esc="line.quantity" />
+                                </span>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt')]//div[hasclass('before-footer')]" position="inside">
+            <t t-if="receipt.client">
+                <div class='customer'>
+                    <span class="pos-receipt-center-align">
+                        <div>--------------------------------</div>
+                        <div><t t-esc="receipt.client.name"/></div>
+                        <div><t t-esc="receipt.client.phone"/></div>
+                        <br/>
+                    </span>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('receipt-change')]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+    </t>
+
+</templates>

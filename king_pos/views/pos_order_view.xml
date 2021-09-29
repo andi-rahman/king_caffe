@@ -1,0 +1,11 @@
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/king_pos/static/src/js/chrome.js"></script>
+            <script type="text/javascript" src="/king_pos/static/src/js/Kitchen.js"></script>
+            <script type="text/javascript" src="/king_pos/static/src/js/Bar.js"></script>
+            <script type="text/javascript" src="/king_pos/static/src/js/Screens/BarScreens.js"></script>
+            <script type="text/javascript" src="/king_pos/static/src/js/Screens/KitchenScreens.js"></script>
+        </xpath>
+    </template>
+</odoo>

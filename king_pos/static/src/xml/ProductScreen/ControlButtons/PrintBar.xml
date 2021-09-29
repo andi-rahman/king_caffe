@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PrintBar" owl="1">
+        <span class="control-button order-printbar">
+            <i class="fa fa-print"></i>
+            <span> </span>
+            <span>Bar</span>
+        </span>
+    </t>
+
+    <t t-name="PrintKitchen" owl="1">
+        <span class="control-button order-printkitchen">
+            <i class="fa fa-print"></i>
+            <span> </span>
+            <span>Kitchen</span>
+        </span>
+    </t>
+
+</templates>
