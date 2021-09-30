@@ -17,8 +17,20 @@ odoo.define('king_pos.BarScreens', function (require) {
              * @override
              */
             async printReceipt() {
-                await super.printReceipt();
-                this.currentOrder._printed = false;
+                const order = this.env.pos.get_order();
+                if (order.hasChangesToPrint()) {
+                    const isPrintSuccessful = await order.printChanges();
+                    if (isPrintSuccessful) {
+                        order.saveChanges();
+                    } else {
+                        await this.showPopup('ErrorPopup', {
+                            title: 'Printing failed',
+                            body: 'Failed in printing the changes in the order',
+                        });
+                    }
+                }
+                // await super.printReceipt();
+                // this.currentOrder._printed = false;
             }
         }
         BarScreens.template = 'BarScreens';

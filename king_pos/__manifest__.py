@@ -10,8 +10,9 @@
     'support': 'rahmanandi24@gmail.com',
     "description": """
         """,
-    "depends": ['point_of_sale', 'pos_restaurant'],
+    "depends": ['point_of_sale', 'pos_restaurant', 'purchase'],
     "data": [
+        'security/ir.model.access.csv',
         'views/pos_order_view.xml',
         'views/product_views.xml',
         'views/pos_config.xml',

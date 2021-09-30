@@ -8,6 +8,9 @@
         <xpath expr="//div[hasclass('pos-receipt')]/t[3]" position="attributes">
             <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
         </xpath>
+        <xpath expr="//div[hasclass('pos-receipt')]/div[3]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
         <!-- report to kitchen or bar -->
         <xpath expr="//div[hasclass('orderlines')]" position="after">
             <t t-if="props.isKitchen">
@@ -44,6 +47,15 @@
             </t>
         </xpath>
 
+
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('receipt-change')]" position="attributes">
+            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
+        </xpath>
+
         <xpath expr="//div[hasclass('pos-receipt')]//div[hasclass('before-footer')]" position="inside">
             <t t-if="receipt.client">
                 <div class='customer'>
@@ -55,14 +67,6 @@
                     </span>
                 </div>
             </t>
-        </xpath>
-
-        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="attributes">
-            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
-        </xpath>
-
-        <xpath expr="//div[hasclass('receipt-change')]" position="attributes">
-            <attribute name="t-if">!props.isKitchen and !props.isBar</attribute>
         </xpath>
     </t>
 

@@ -42,8 +42,8 @@ class StockPicking(models.Model):
                 )
                 list_moves = []
                 for material in line.product_id.material_product_ids:
-                    product = material.product_variant_id
-                    quantity = product.material_qty * line.qty
+                    product = material.product_tmpl_id.product_variant_id
+                    quantity = material.material_qty * line.qty
                     moves = preorder_picking._create_move_from_pre_order_lines(line, product, quantity)
                     list_moves.append(moves.id)
                 preorder_picking.write({

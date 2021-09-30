@@ -13,19 +13,13 @@ class ProductTemplate(models.Model):
     is_drink = fields.Boolean('Drink', default=False)
     is_need_materials = fields.Boolean('Is Need Materials', default=False)
     material_qty = fields.Integer('Quantity')
-    material_product_ids = fields.Many2many('product.template', 'material_rel', 'product_id', 'material_id', string='Materials', store=True)
+    material_product_ids = fields.One2many('product.materials', 'material_id', string='Materials', store=True)
 
     @api.constrains('is_food', 'is_drink')
-    def _check_closing_date(self):
+    def _check_type_product_in_pos(self):
         for product in self:
             if product.is_food and product.is_drink:
                 raise ValidationError(_("is confused, you can't select all type product"))
-
-    # @api.onchange('is_food', 'is_drink')
-    # def onchange_type_product(self):
-    #     _logger.info("SSSSSSSSSS")
-    #     if self.is_food:
-    #         self.is_drink = False
 
 
 class PosOrderLine(models.Model):
@@ -34,3 +28,12 @@ class PosOrderLine(models.Model):
 
     is_food = fields.Boolean('Food', related='product_id.is_food', store=True)
     is_drink = fields.Boolean('Drink', related='product_id.is_drink', store=True)
+
+
+class ProductMaterials(models.Model):
+    _name = "product.materials"
+
+    material_id = fields.Many2one('product.template', 'Materials For Product')
+    product_tmpl_id = fields.Many2one('product.template', 'Materials Product')
+    material_qty = fields.Integer('Quantity')
+    uom_id = fields.Many2one('uom.uom', related='product_tmpl_id.uom_id')
