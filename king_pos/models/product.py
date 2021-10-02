@@ -35,5 +35,5 @@ class ProductMaterials(models.Model):
 
     material_id = fields.Many2one('product.template', 'Materials For Product')
     product_tmpl_id = fields.Many2one('product.template', 'Materials Product')
-    material_qty = fields.Integer('Quantity')
+    material_qty = fields.Float('Quantity')
     uom_id = fields.Many2one('uom.uom', related='product_tmpl_id.uom_id')
