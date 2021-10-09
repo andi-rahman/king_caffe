@@ -21,19 +21,23 @@ class PosSession(models.Model):
 
 
     def _prepare_pre_order(self, lines, order):
-        pickings = self._create_picking_preorder_at_end_of_session(order)
-        return{
+        temp = {
             'date': fields.date.today(),
             'pos_session_id': self.id,
             'pos_order_id': order.id,
             'pos_order_line_ids': [(6, 0, lines)],
-            'picking_ids': [(6, 0, pickings.ids)],
         }
+        pickings = self._create_picking_preorder_at_end_of_session(order)
+        if pickings:
+            temp.update({'picking_ids': [(6, 0, pickings.ids)]})
+        return temp
 
     def _create_picking_preorder_at_end_of_session(self, order):
         self.ensure_one()
         lines_grouped_by_dest_location = {}
         picking_type = self.config_id.picking_type_id
+
+        pickings = False
 
         if not picking_type or not picking_type.default_location_dest_id:
             session_destination_id = self.env['stock.warehouse']._get_partner_locations()[0].id
